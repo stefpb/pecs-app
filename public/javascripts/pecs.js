@@ -56,7 +56,7 @@ $(function() {
 
     showSentence();
 
-    $('#pool div.category').live('click', function() {
+    $('#pool .category').live('click', function() {
         selectedPath.push($(this).text());
         showPool();
     });
