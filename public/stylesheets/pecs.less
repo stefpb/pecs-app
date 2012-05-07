@@ -1,0 +1,43 @@
+body {
+    font-family: 'Lobster', cursive;
+    font-size: 22px;
+    text-shadow: 0 -1px 1px #888;
+    color: #111;
+    padding: 10px;
+    background-color: #6c2c06;
+    text-align: center;
+}
+
+.basicbox {
+    border:5px dashed rgba(255,255,255,0.4);
+    float:left;
+    cursor:pointer;
+    width:60px;
+    height:60px;
+    border-radius:10px;
+    padding:15px;
+    margin:5px;
+}
+
+.contextbox {
+    .basicbox;
+    background-color:#fff;
+}
+
+#sentence div {
+    .basicbox;
+}
+
+#sentence .word {
+    .contextbox;
+}
+
+#sentence {
+    position:fixed;
+    bottom:100px;
+    width:100%;
+    height:100px;
+}
+#pool div {
+    .contextbox
+}
