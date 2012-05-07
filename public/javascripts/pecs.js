@@ -14,9 +14,13 @@ var pool = {
 
 
 
-var selectedPath = [];
+var selectedPath;
 var sentence = ['Can I'];
 
+function resetPool() {
+    selectedPath = [];
+    showPool();
+}
 
 function showPool() {
     var selector = selectedPath;
@@ -45,7 +49,7 @@ function showSentence() {
     $.each(sentence, function() {
         $('<div class="word">' + this + '</div>').appendTo('#sentence');
     });
-    $('<div>+</div>').appendTo('#sentence').on('click', function() {
+    $('<div class="add">+</div>').appendTo('#sentence').on('click', function() {
         selectedPath = [];
         showPool();
     });
@@ -64,11 +68,13 @@ $(function() {
     $('#pool .item').live('click', function() {
         sentence.push($(this).text());
         showSentence();
+        resetPool();
     });
 
-    showPool([]);
+    resetPool();
 
     $('#sentence .word').live('click', function() {
+        console.log("huhu");
         sentence.splice($(this).index(), 1);
         showSentence();
     });

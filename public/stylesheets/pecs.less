@@ -1,6 +1,6 @@
 body {
     font-family: 'Lobster', cursive;
-    font-size: 22px;
+    font-size: 20px;
     text-shadow: 0 -1px 1px #888;
     color: #111;
     padding: 10px;
@@ -24,20 +24,25 @@ body {
     background-color:#fff;
 }
 
-#sentence div {
-    .basicbox;
-}
-
-#sentence .word {
-    .contextbox;
-}
-
 #sentence {
     position:fixed;
     bottom:100px;
     width:100%;
     height:100px;
+
+    .add {
+        .basicbox;
+    }
+    .word {
+        .contextbox;
+    }
 }
-#pool div {
-    .contextbox
+
+#pool {
+    .category {
+        .basicbox;
+    }
+    .item {
+        .contextbox;
+    }
 }
