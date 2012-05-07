@@ -14,9 +14,13 @@ var pool = {
 
 
 
-var selectedPath = [];
+var selectedPath;
 var sentence = ['Can I'];
 
+function resetPath() {
+    selectedPath = [];
+    showPool();
+}
 
 function showPool() {
     var selector = selectedPath;
@@ -64,9 +68,10 @@ $(function() {
     $('#pool .item').live('click', function() {
         sentence.push($(this).text());
         showSentence();
+        resetPath();
     });
 
-    showPool([]);
+    resetPool();
 
     $('#sentence .word').live('click', function() {
         sentence.splice($(this).index(), 1);
