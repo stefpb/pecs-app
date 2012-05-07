@@ -1,21 +1,61 @@
 var pool = {
+    'Persons' : {
+        'items' : ['I', 'You', 'We', "He", "She", "It" ]
+    },
+    'Tasks' : {
+        'passive':{
+            'items' : ['watch', 'listen']
+        },
+        'items' : ['look', 'take', 'order', 'eat', 'use', 'ask', 'sell']
+    },
+    'Locations': {
+        'items' : ['Home'],
+        'regional' : {
+            'items' : ['school', 'restaurant', 'phone', 'library', 'hospital', 'trampoline']
+        },
+        'germany': {
+            'items': ['Paderborn', "Berlin", "Holon", "Braunschweig", "Kiel", "Düsseldorf"]
+        },
+        'Israel': {
+            'items': ['Tel Aviv']
+        }
+    },
+    'adjectives': {
+        'sizes': {
+            'items' : ['big', 'small']
+        },
+        'volume': {
+            'items' : ['loud', 'quiet', 'silent']
+        },
+        'items' : ['fast', 'slow', 'next', 'last', 'first']
+    },
+    'Colors' : {
+        'items': ['white', 'red', 'yellow', 'black', 'brown', 'blue', 'green', 'orange', 'purple', 'gray']
+    },
     'Foods & Drinks':{
         'hot food':{
-            'items':[ 'pizza' ]
+            'items':[ 'pizza', 'spaghetti', 'potato' ]
+        },
+        'cold drinks': {
+            'items': ['cola', 'juice']
+        },
+        'hot drinks': {
+            'items': ['coffee', 'tea']
         }
     },
     'Objects':{
         'technical':{
-            'items':[ 'toaster' ]
+            'items':[ 'toaster', 'computer', 'dryer' ]
         },
         'items':[ 'thing' ]
-    }
+    },
+    items: ['can', 'need', 'please', 'thanks']
 };
 
 
 
 var selectedPath;
-var sentence = ['Can I'];
+var sentence = [];
 
 function resetPool() {
     selectedPath = [];
@@ -74,7 +114,6 @@ $(function() {
     resetPool();
 
     $('#sentence .word').live('click', function() {
-        console.log("huhu");
         sentence.splice($(this).index(), 1);
         showSentence();
     });
