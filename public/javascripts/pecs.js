@@ -92,6 +92,7 @@ function showSentence() {
     $('<div class="add">+</div>').appendTo('#sentence').on('click', function() {
         selectedPath = [];
         showPool();
+        capturePhoto();
     });
 }
 
