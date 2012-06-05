@@ -1,2 +1,13 @@
-#pool
-#sentence
+#home(data-role='page')
+    div(data-role='header', data-position='fixed')
+        h1 PECS
+    div(data-role='content')
+        a(href='#chat') Chat
+#chat(data-role='page')
+    div(data-role='header', data-position='fixed')
+        a(href='#home', data-icon='home', data-iconpos='notext', data-direction='reverse') Home
+        h1 CHAT
+    div(data-role='content')
+        #pool
+    div(data-role='footer', data-position='fixed')
+        #sentence
