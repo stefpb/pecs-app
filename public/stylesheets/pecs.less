@@ -1,19 +1,22 @@
-body {
-    text-shadow: 0 -1px 1px #000000;
-    color: #111;
-    padding: 10px;
-    text-align: center;
+.center {
+    text-align:center;
+}
+
+.round {
+    border-radius:10px;
 }
 
 .basicbox {
     border:5px dashed rgba(0, 0, 0,0.4);
     float:left;
     cursor:pointer;
-    width:60px;
-    height:60px;
-    border-radius:10px;
-    padding:15px;
+    width:40px;
+    height:40px;
+    .round;
+    padding:5px;
     margin:5px;
+    font-size:9pt;
+    .center;
 }
 
 .contextbox {
@@ -37,4 +40,20 @@ body {
     .item {
         .contextbox;
     }
+}
+
+.menu {
+    background-color:#228383;
+    padding:10px;
+    margin:5px;
+    .round;
+    
+    a div {
+        color:#fff;
+        text-shadow:none;
+    }
+}
+
+.ui-body-c, .ui-page {
+    background-color:#BED3DA !important;
 }
