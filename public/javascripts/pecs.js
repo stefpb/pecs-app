@@ -82,6 +82,18 @@ function showPool() {
             $('<div class="item">' + this + '</div>').appendTo('#pool');
         });
     }
+    
+    $('#pool .item').hammer({prevent_default: false}).bind('hold', function(ev) {
+        // Take picture using device camera and retrieve image as base64-encoded string
+        navigator.camera.getPicture(function(imageData) {
+                $(this).html('<img src="data:image/jpeg;base64,' + imageData + '" />');
+            }, function(msg) {
+                alert(msg);
+            }, {
+              quality: 50,
+              destinationType: destinationType.DATA_URL
+            });
+    });
 }
 
 function showSentence() {
@@ -111,7 +123,7 @@ $(function() {
         showSentence();
         resetPool();
     });
-
+    
     resetPool();
 
     $('#sentence .word').live('click', function() {
