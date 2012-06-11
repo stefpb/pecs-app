@@ -80,6 +80,8 @@ function showPool() {
             $('<div title="' + i + '" class="item"><img src="data:image/jpeg;base64,' + this.community + '" /></div>').appendTo('#pool');
         });
     }
+    
+    $('<a href="#chat_new_word" data-rel="dialog" class="add">+</div>').appendTo('#pool');
 
     $('#pool .item').hammer({prevent_default: false}).bind('hold', function(ev) {
         // Take picture using device camera and retrieve image as base64-encoded string

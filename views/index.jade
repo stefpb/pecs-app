@@ -15,3 +15,17 @@
         #pool
     div(data-role='footer', data-position='fixed')
         #sentence
+#chat_new_word(data-role='page')
+    div(data-role='header')
+        h1 New Word / New Category
+    div(data-role='content')
+        p Add a new word
+        form(action='#')
+            label(for="word") Word:
+            input(type="text", id="word", data-mini="true")
+            label(for="type") Is Category:
+            select(id="type", data-role="slider", data-mini="true")
+                option(value="yes") Yes
+                option(value="no") No
+            button(data-mini="true") Submit
+        p Categories can i have words, but can not be selected as a word in a sentence

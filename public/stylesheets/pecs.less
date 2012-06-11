@@ -25,13 +25,11 @@
 }
 
 #sentence {
-    .add {
-        .basicbox;
-    }
     .word {
         .contextbox;
     }
 }
+
 
 #pool {
     .category {
@@ -39,6 +37,9 @@
     }
     .item {
         .contextbox;
+    }
+    a {
+        text-decoration:none;
     }
 }
 
@@ -56,6 +57,9 @@
 
 /* Workaround */
 #sentence, #pool {
+    .add {
+        .basicbox;
+    }
     img {
         height:40px;
         width:40px;
