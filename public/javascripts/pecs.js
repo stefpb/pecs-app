@@ -96,13 +96,13 @@ function showPool() {
 
 function showSentence() {
     $('#sentence').html('');
-    $.each(sentence, function() {
-        $('<div class="word">' + this + '</div>').appendTo('#sentence');
+    $.each(sentence, function(i) {
+        var word = Object.keys(sentence[i])[0];
+        $('<div class="word" title="' + word + '"><img src="data:image/jpeg;base64,' + sentence[i][word].community + '" /></div>').appendTo('#sentence');
     });
     $('<div class="add">+</div>').appendTo('#sentence').on('click', function() {
         selectedPath = [];
         showPool();
-        capturePhoto();
     });
 }
 
@@ -118,7 +118,10 @@ $(function() {
 
     $('#pool .item').live('click', function() {
         //console.log([selectedPath, $(this).attr('title')]);
-        sentence.push($(this).attr('title'));
+        var wordindex = $(this).attr('title');
+        var word = {};
+        word[wordindex] = getSubPool(selectedPath).items[wordindex];
+        sentence.push(word);
         showSentence();
         resetPool();
     });
