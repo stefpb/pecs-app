@@ -84,7 +84,9 @@ function showPool() {
     $('#pool .item').hammer({prevent_default: false}).bind('hold', function(ev) {
         // Take picture using device camera and retrieve image as base64-encoded string
         navigator.camera.getPicture(function(imageData) {
-                $(ev.target).html('<img style="width:40px;height:40px;" src="data:image/jpeg;base64,' + imageData + '" />');
+                getSubPool(selectedPath).items[$(ev.target).attr('title')].community = imageData;
+                showPool();
+                showSentence();
             }, function(msg) {
                 alert(msg);
             }, {
