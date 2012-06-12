@@ -64,19 +64,23 @@ function getSubPool(selector) {
     return subPool;
 }
 
+function itemToHtml(cssClass, word, image) {
+    return '<div title="' + word + '" class="' + cssClass + '"><img src="data:image/jpeg;base64,' + image + '" /><div>' + word + '</div></div>';
+}
+
 function showPool() {
     var subPool = getSubPool(selectedPath);
     $('#pool').html('');
 
     $.each(subPool, function(i) {
         if(i !== 'items' && i !== 'pictures') {
-            $('<div title="' + i + '" class="category"><img src="data:image/jpeg;base64,' + this.pictures.community + '" /></div>').appendTo('#pool');
+            $(itemToHtml('category', i , this.pictures.community)).appendTo('#pool');
         }
     });
 
     if(subPool.items) {
         $.each(subPool.items, function(i) {
-            $('<div title="' + i + '" class="item"><img src="data:image/jpeg;base64,' + this.community + '" /></div>').appendTo('#pool');
+            $(itemToHtml('word', i, this.community)).appendTo('#pool');
         });
     }
     
@@ -93,7 +97,7 @@ function showSentence() {
     $('#sentence').html('');
     $.each(sentence, function(i) {
         var word = Object.keys(sentence[i])[0];
-        $('<div class="word" title="' + word + '"><img src="data:image/jpeg;base64,' + sentence[i][word].community + '" /></div>').appendTo('#sentence');
+        $(itemToHtml('word', word, sentence[i][word].community)).appendTo('#sentence');
     });
     $('<div class="add">+</div>').appendTo('#sentence').on('click', function() {
         selectedPath = [];

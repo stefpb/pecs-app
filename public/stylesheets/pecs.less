@@ -24,26 +24,8 @@
     background-color:#000000;
 }
 
-#sentence {
-    .word {
-        .contextbox;
-    }
-}
 
-
-#pool {
-    .category {
-        .basicbox;
-    }
-    .item {
-        .contextbox;
-    }
-    a {
-        text-decoration:none;
-    }
-}
-
-.menu {
+#home .menu {
     background-color:#228383;
     padding:10px;
     margin:5px;
@@ -55,13 +37,48 @@
     }
 }
 
-/* Workaround */
-#sentence, #pool {
-    .add {
-        .basicbox;
+#chat {
+
+    #pool, #sentence {
+        .add {
+            .basicbox;
+        }
+        
+        .word, .category {
+            
+            img {
+                height:40px;
+                width:40px;
+            }
+            
+            div {
+                margin-top: -3px;
+                color: white;
+                text-shadow: none;
+                font-size: 8pt;
+            }
+        }
     }
-    img {
-        height:40px;
-        width:40px;
+    
+    #pool {
+        .category {
+            .basicbox;
+            
+            div {
+                color:black;
+            }
+        }
+        .word {
+            .contextbox;
+        }
+        a {
+            text-decoration:none;
+        }
+    }
+
+    #sentence {
+        .word {
+            .contextbox;
+        }
     }
 }
