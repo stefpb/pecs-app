@@ -50,6 +50,9 @@ function onDeviceReady() {
 var selectedPath;
 var sentence = [];
 
+var new_word = "";
+var new_word_is_category = false;
+
 
 function resetPool() {
     selectedPath = [];
@@ -136,4 +139,13 @@ $(function() {
         sentence.splice($(this).index(), 1);
         showSentence();
     });
+    
+    
+    $('#chat_new_word form').submit(function() {
+        new_word=$('#chat_new_word #word').val();
+        new_word_is_category=$('#chat_new_word #type:selected').val() === 'yes';
+        alert("Making picture...");
+        $.mobile.changePage($('#chat'));
+        return false;
+    })
 });
