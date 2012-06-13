@@ -86,9 +86,9 @@ function showPool() {
     
     $('<a href="#chat_new_word" data-rel="dialog" class="add">+</div>').appendTo('#pool');
 
-    $('#pool .item').hammer({prevent_default: false}).bind('hold', function(ev) {
+    $('#pool .word').hammer({prevent_default: false}).bind('hold', function(ev) {
         takePicture(function(imageData) {
-            getSubPool(selectedPath).items[$(ev.target).attr('title')].community = imageData;
+            docg.at(selectedPath.concat(['items', $(ev.target).attr('title'), 'community'])).set(imageData);
         });
     });
 }
@@ -110,8 +110,6 @@ function takePicture(callback) {
     if(!navigator.camera) {
         alert('No Camera detected!');
         callback('/9j/4AAQSkZJRgABAQEASABIAAD//gATQ3JlYXRlZCB3aXRoIEdJTVD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoACgDASIAAhEBAxEB/8QAGwAAAQUBAQAAAAAAAAAAAAAAAAMEBQYHCAn/xAAxEAABAwMDAwMCAwkAAAAAAAABAgMEBQYRAAcSCBMhMUFRCRQVIiQWOVJhcXWBkbT/xAAYAQADAQEAAAAAAAAAAAAAAAAEBQYDB//EACsRAAECBAQEBgMAAAAAAAAAAAECAwAEESEFEjFBBhNRYRQiM0JSwWJxcv/aAAwDAQACEQMRAD8A2DaS/Khb9VqO324clqNOpTS3o811eEvMJTyOT74TlQPrgHPkaWPVDsaHnWl3sEls45fhstSVfzBDRzrJ+s3cKzP21ZtH8NnOV+ntJEyc3gNNMuoCu2seqxxUDnwE8j65I1lFBuDaO0toK7aV1WU9UbgniYuk1punR3ez3GQlrLylhwFC/OACPcZJ0DLrU0vkOH+T1HT9iKrF5drEJYYrKpA2dSPar5AbJXt0NRHoRRKpTq3SIlXpMxmbAmNJejvtKyhxBGQQdPNcX9K/UlYVk7VUmy7ucqMSTBffSiQ1FLrQaW4pwFRSSrOVqGAk+ANbPO6ndpjGzQqvMr8o+kaJBebIH8SlOpQlI/zn4B0YtaUJKlGgETcvLuzDqWmklSlWAGpjTL6umkWdbj9brTqkR2yEpSgZW6s5whI+Tg/60a4yvvfOn13cmBPvKkVKfbzMgCPTozoSy0c4/OojC1e6gMZ9MgeNGlxdm3vMzQJ2rqe8VwlcBwocjEUqde92QjKn8a7kb0tW20aHbH7xm6f7Kj/li6ddRz0DbDc2g3VR0Rfubg+4S/Bktc4762+HIkexV3Enx7jI8nTO3XG2vqK3W46tLaE0RBUpRwAPtYvknSPVS9F3HvyzYdkTH6nVrcefkfoGUvo5qUypOFeUniWRnwR5wdbT3L5fnNDt1r2gHhYTviz4ZvOgghYNklB1zE2HUHY6RRqluneUuVHqNe2O23l0CdIU2JS6WF9wJPkdwrOFgfKc+hxqU6ZUbWXLu/UqROp0WDPyt+n0dtjERwgclAKJJWUJBPFQxgE+cYFetqfLs2/mJt3WDVFRozinURJ0VyKwtRHgtlaSFcTg4IOcD+urxsaxcW63VZL3fet9+hUGksLjxu60R31dksJRzxhasLKyRnA4j40LLqVNro/bL7evc/Qh9jDLPD8uVYUcwdJHNBByivppI0PyVao0tEr9RlCUbdWmlCAlCa1xAAwAOyrA0akfqNISrY+kqIHJNxMYPx+nkaNN453FTkbb3VvDf9x7iUOHGo7FTKGW3ak6tAW222hCUpCEqKvDaVK9s+h8adUDZrqYsdUp2zb5s9tMjBcSI6S4rHsC7GUQB8ctGjS+SZSpAfVdR3P10iu4nxF9qYcwxk5GGzQJTYGm6t1Hua9qQ8nWz1lzIb0WVdlryGHUFLjS2IpCwfbzH1AUy1OoLa+0J1TYlR6UHMKkrp6mZaUY8BSmnEqA9cEpB8e4GjRrSdaCmy5opNwYE4annGptMoaKadISpJuCCaV7Eagi4MNV2BvzvpasFm4dzrQqlBRMRJdihoNvx3EhSfzJajJPIJWr8vPBz6++jRo1rKOF5lK1amBMdkGpHEXpZquVKiBWP//Z');
-        showPool();
-        showSentence();
     } else {
         navigator.camera.getPicture(function(imageData) {
                 callback(imageData);
@@ -128,6 +126,7 @@ function takePicture(callback) {
     }
 }
 
+var docg;
 
 $(function() {
 
@@ -161,19 +160,41 @@ $(function() {
         var new_word_is_category=$('#chat_new_word #type option:selected').val() === 'yes';
         takePicture(function(imageData) {
             if(new_word_is_category) {
-                getSubPool(selectedPath)[new_word] = {
+                docg.at(selectedPath.concat([new_word])).set({
                     'pictures' : {
                         'community': imageData
                     }
-                };
+                });
             } else {
-                if(getSubPool(selectedPath).items === undefined) {
-                    getSubPool(selectedPath).items = {};
-                }
-                getSubPool(selectedPath).items[new_word] = { 'community': imageData };
+                docg.at(selectedPath.concat(['items', new_word])).set({ 'community': imageData });
             }
         });
         $.mobile.changePage($('#chat'));
         return false;
-    })
+    });
+
+    sharejs.open('dictionary', 'json', function(error, doc) {
+        docg = doc;
+        if (error) {
+          if (console) {
+            console.error(error);
+          }
+          return;
+        }
+    
+        if (doc.created) {
+            doc.set(pool);
+        }
+        
+        pool = doc.get();
+        showPool();
+        
+        doc.on('change', function() {
+            pool = doc.snapshot;
+            showPool();
+            showSentence();
+        });
+    });
+    
 });
+
