@@ -136,7 +136,7 @@ $(function() {
         showPool();
     });
 
-    $('#pool .item').live('click', function() {
+    $('#pool .word').live('click', function() {
         //console.log([selectedPath, $(this).attr('title')]);
         var wordindex = $(this).attr('title');
         var word = {};
