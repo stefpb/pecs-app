@@ -120,8 +120,10 @@ function takePicture(callback) {
             }, function(msg) {
                 alert(msg);
             }, {
-              quality: 50,
-              destinationType: destinationType.DATA_URL
+                quality: 50,
+                targetWidth: 40,
+                targetHeight: 40,
+                destinationType: destinationType.DATA_URL
         });
     }
 }
