@@ -163,6 +163,8 @@ $(function() {
                 docg.at(selectedPath.concat([new_word])).set({
                     'pictures' : {
                         'community': imageData
+                    },
+                    'items': {
                     }
                 });
             } else {
