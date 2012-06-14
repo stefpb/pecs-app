@@ -146,6 +146,11 @@ $(function() {
         showSentence();
         resetPool();
     });
+    
+    $('#chat #back').click(function() {
+        selectedPath.pop();
+        showPool();
+    });
 
     resetPool();
 
