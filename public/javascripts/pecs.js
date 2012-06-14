@@ -46,7 +46,7 @@ function onDeviceReady() {
  * Phonegap-Bridge-End
  */
 
-
+var docg;
 var selectedPath;
 var sentence = [];
 
@@ -55,21 +55,12 @@ function resetPool() {
     showPool();
 }
 
-function getSubPool(selector) {
-    var subPool = pool;
-    for(var i = 0; i<selector.length; i++)
-    {
-        subPool = subPool[selector[i]];
-    }
-    return subPool;
-}
-
 function itemToHtml(cssClass, word, image) {
     return '<div title="' + word + '" class="' + cssClass + '"><img src="data:image/jpeg;base64,' + image + '" /><div>' + word + '</div></div>';
 }
 
 function showPool() {
-    var subPool = getSubPool(selectedPath);
+    var subPool = docg.at(selectedPath).get();
     $('#pool').html('');
 
     $.each(subPool, function(i) {
@@ -126,8 +117,6 @@ function takePicture(callback) {
     }
 }
 
-var docg;
-
 $(function() {
 
     showSentence();
@@ -141,7 +130,7 @@ $(function() {
         //console.log([selectedPath, $(this).attr('title')]);
         var wordindex = $(this).attr('title');
         var word = {};
-        word[wordindex] = getSubPool(selectedPath).items[wordindex];
+        word[wordindex] = docg.at(selectedPath).get().items[wordindex];
         sentence.push(word);
         showSentence();
         resetPool();
@@ -151,8 +140,6 @@ $(function() {
         selectedPath.pop();
         showPool();
     });
-
-    resetPool();
 
     $('#sentence .word').live('click', function() {
         sentence.splice($(this).index(), 1);
@@ -202,6 +189,8 @@ $(function() {
             showSentence();
         });
     });
+    
+        resetPool();
     
 });
 

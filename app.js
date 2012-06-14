@@ -33,7 +33,7 @@ app.configure('production', function(){
 
 app.get('/', routes.index);
 
-sharejs.attach(app, {db: {type: 'redis', hostname: '50.30.35.9', port: 2354, auth: 'cf2e146038b9e37ef490119cc46f02d5'}});
+sharejs.attach(app, {db: {type: 'none', hostname: '50.30.35.9', port: 2354, auth: 'cf2e146038b9e37ef490119cc46f02d5'}});
 
 app.listen(process.env.C9_PORT || process.env.PORT || 3000, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
