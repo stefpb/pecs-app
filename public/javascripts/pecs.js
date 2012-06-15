@@ -30,6 +30,8 @@ var model = {
                 'community': '/9j/4AAQSkZJRgABAQEASABIAAD//gATQ3JlYXRlZCB3aXRoIEdJTVD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoACgDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAAAAQGBwgB/8QAKxAAAgIBBAIBAwIHAAAAAAAAAQIDBAUABhESByETFDEyIkIVFiMkQWFx/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ANf8l743dtryPYxW0oL+5KF6KNct9PQktttmVviRJgsQYyAxlpTV69yV7hgr8au/844HE+NsXmMDfk3NBaENLEdbgknyVhm+NU+Rz7fsGLk/gEkZgAh4tOIxlLE0zToRNFC0805BkZyZJZGlkbliT7d2P+ueBwPWsK3Fj935TGX/ACg9qzs5sRFeO1NuxY2A2ZJ5ew+SYSKxazZkJAiUc8OoBLsxIdAIWKAuAG49gHkA/wDde6gY/LY61YajHk6E9+EcTwQTqzIw9NyvPI4Pr3qfoGmmmgapfknZbbjx+Ut1LczZYYmWDERWJf7Wnd4cw20UDlJ1ZgBKD2UD9PHJ5ummg5m/j1/EZqqdpbSt7Oq7V2fZs2KV3HdWtWW6wVoWcEGVQyl1b9xRh+RPTddpbx27n3joY3NxZC6tZZyRC8Xzx/p/rIGADRt2VgykqQ6kEhgTA3947wu68VmqhVaNjOilDk7SJ3eevWm+QR8E8KSpkQOPa9w3vqBqhb+3muy9w4/J7gwtfHw4eWzR27gsXNHPbyMbQkJYKgr8EHCdOoVurEEkKPYa1ic9UymczGKqJMzYiSKGzMUIjMroJDGp/cyo0ZPH27gffkBqo+DJLUG3JKGSweRo5iSebIZazNQNeCa3YkMsgjLHtIq9+ik/ZY1B68BdNBommmmgah3MVi7sk0lzG07LzVmqytLArmSBvyiYke0P+VPo6aaDIru17dbyFtKC5iM9nDj1GMkyllD9NLXEUzJN2imLJMgkCO8sfWUk9Qvoo000H//Z'
             }
         }
+    },
+    'contacts': {
     }
 };
 
@@ -50,6 +52,7 @@ function onDeviceReady() {
 var docg;
 var selectedPath;
 var sentence = [];
+var username='community';
 
 function resetPool() {
     selectedPath = ['dictionary'];
@@ -165,6 +168,18 @@ $(function() {
             }
         });
         $.mobile.changePage($('#chat'));
+        return false;
+    });
+    
+    $('#login form').submit(function() {
+        username=$('#login #username').val();
+        $.mobile.changePage($('#home'));
+        if(!docg.at(['contacts']).get()[username]) {
+            alert("Welcome " + username + "! You are new in the system. Please make a picture of you.");
+            takePicture(function(imageData) {
+                docg.at(['contacts', username]).set({ 'picture' : imageData });
+            });
+        };
         return false;
     });
 

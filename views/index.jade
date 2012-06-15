@@ -1,10 +1,28 @@
-#home(data-role='page')
+#login(data-role='page')
     div(data-role='header', data-position='fixed')
         h1 PECS
     div(data-role='content', class='center')
         img(src='http://pool.afko.de/screenshot_Sllg.png')
-        div(class='menu')
-            a(href='#chat')
+        br
+        form(action="#")
+            div(data-role='fieldcontain')
+                label(for="word") Username:
+                input(type="text", id="username")
+            div(data-role='fieldcontain')
+                label(for="word") Password:
+                input(type="text", id="password")
+            button(type="submit") Login
+#home(data-role='page')
+    div(data-role='header', data-position='fixed')
+        h1 PECS
+        a(href='#login', data-icon='back', data-direction='reverse') Log out
+    div(data-role='content', class='center')
+        img(src='http://pool.afko.de/screenshot_Sllg.png')
+        div(class='menu ui-grid-a')
+            a(class='ui-block-a',href='#contacts')
+                img(src='http://dl.dropbox.com/u/8524305/PECS_group4/Home_files/u16_normal.jpg')
+                div Contacts
+            a(class='ui-block-b',href='#chat')
                 img(src='http://dl.dropbox.com/u/8524305/PECS_group4/Home_files/u28_normal.jpg')
                 div Chat
 #chat(data-role='page')
@@ -16,6 +34,7 @@
         #pool
     div(data-role='footer', data-position='fixed')
         #sentence
+        button#send_sentence(data-icon='arrow-r') &nbsp;
 #chat_new_word(data-role='page')
     div(data-role='header')
         h1 New Word / New Category
@@ -29,7 +48,7 @@
                 select(id="type", data-role="slider", data-mini="true")
                     option(value="no") No
                     option(value="yes") Yes
-            fieldset(class="ui-grid-a")			
+            fieldset(class="ui-grid-a")		
                 .ui-block-a
                     a(href="#chat", data-role="button", data-mini="true", data-theme="d") Cancel
                 .ui-block-b
