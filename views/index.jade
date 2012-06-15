@@ -11,6 +11,7 @@
             div(data-role='fieldcontain')
                 label(for="word") Password:
                 input(type="text", id="password")
+            p in this prototype the password are not checked
             button(type="submit") Login
 #home(data-role='page')
     div(data-role='header', data-position='fixed')
@@ -25,6 +26,12 @@
             a(class='ui-block-b',href='#chat')
                 img(src='http://dl.dropbox.com/u/8524305/PECS_group4/Home_files/u28_normal.jpg')
                 div Chat
+#contacts(data-role='page')
+    div(data-role='header', data-position='fixed')
+        h1 Contacts
+        a(href='#home', data-icon='back', data-iconpos='notext', data-direction='reverse') Back
+    div(data-role='content')
+        #contact_list
 #chat(data-role='page')
     div(data-role='header', data-position='fixed')
         a(href='#home', data-icon='home', data-iconpos='notext', data-direction='reverse') Home

@@ -53,6 +53,7 @@ var docg;
 var selectedPath;
 var sentence = [];
 var username='community';
+var receiver;
 
 function resetPool() {
     selectedPath = ['dictionary'];
@@ -94,10 +95,7 @@ function showSentence() {
         var word = Object.keys(sentence[i])[0];
         $(itemToHtml('word', word, sentence[i][word].community)).appendTo('#sentence');
     });
-    $('<div class="add">+</div>').appendTo('#sentence').on('click', function() {
-        selectedPath = [];
-        showPool();
-    });
+    $('<div class="add">+</div>').appendTo('#sentence').on('click', resetPool);
 }
 
 function takePicture(callback) {
@@ -121,6 +119,25 @@ function takePicture(callback) {
     }
 }
 
+
+
+
+function showContacts() {
+    $('#contact_list').html('');
+    $.each(docg.at(['contacts']).get(), function(i) {
+        $(itemToHtml('contact', i, docg.at(['contacts']).get()[i].picture)).appendTo('#contact_list').click(function() {
+            receiver=i;
+            $('#chat h1').text('Chat with ' + i);
+            $.mobile.changePage($('#chat'));
+        });
+    });
+}
+
+
+
+
+
+
 $(function() {
 
     showSentence();
@@ -141,8 +158,10 @@ $(function() {
     });
     
     $('#chat #back').click(function() {
-        selectedPath.pop();
-        showPool();
+        if(selectedPath.length>1) {
+            selectedPath.pop();
+            showPool();
+        }
     });
 
     $('#sentence .word').live('click', function() {
@@ -198,11 +217,13 @@ $(function() {
         
         model = doc.get();
         resetPool();
+        showContacts();
         
         doc.on('change', function() {
-            model = doc.snapshot;
             showPool();
             showSentence();
+            showContacts();
+            console.log(doc.snapshot);
         });
     });
     
