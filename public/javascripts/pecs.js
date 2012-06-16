@@ -54,6 +54,7 @@ var selectedPath;
 var sentence = [];
 var username='community';
 var receiver;
+var usermodel;
 
 function resetPool() {
     selectedPath = ['dictionary'];
@@ -120,22 +121,36 @@ function takePicture(callback) {
 }
 
 
-
-
 function showContacts() {
     $('#contact_list').html('');
     $.each(docg.at(['contacts']).get(), function(i) {
         $(itemToHtml('contact', i, docg.at(['contacts']).get()[i].picture)).appendTo('#contact_list').click(function() {
             receiver=i;
-            $('#chat h1').text('Chat with ' + i);
-            $.mobile.changePage($('#chat'));
+            $('#messages h1').text('Chat with ' + i);
+            $('#chat h1').text('Write with ' + i);
+            showMessages();
+            $.mobile.changePage($('#messages'));
         });
     });
 }
 
-
-
-
+function showMessages() {
+    $('#message_list').html('No Messages with ' + receiver);
+    if(receiver) {
+        var messages = usermodel.at(['messages', receiver]).get();
+        if(messages && messages.length) {
+            $('#message_list').html('');
+            $.each(messages, function(j) {
+                $('<span>' + $.timeago(new Date(messages[j].time)) + '</span>').appendTo('#message_list');
+                $.each(messages[j].sentence, function(i) {
+                    var word = Object.keys(messages[j].sentence[i])[0];
+                    $(itemToHtml('word', word, messages[j].sentence[i][word].community)).appendTo('#message_list');
+                });
+                $('<hr style="clear:both" />').appendTo('#message_list');
+            });
+        }
+    }
+}
 
 
 $(function() {
@@ -190,6 +205,25 @@ $(function() {
         return false;
     });
     
+    $('#send_sentence').click(function() {
+        sharejs.open('user_' + receiver, 'json', function(error, doc) {
+            if(error) {
+                alert(error);
+            }
+
+            if(!doc.at(['messages', username]).get()) {
+                doc.at(['messages', username]).set([]);
+            }
+            
+            doc.at(['messages', username]).push({
+                'time': (new Date()).getTime(),
+                'sentence': sentence
+            }, function() {
+                doc.close();
+            });
+        });
+    });
+    
     $('#login form').submit(function() {
         username=$('#login #username').val();
         $.mobile.changePage($('#home'));
@@ -199,16 +233,30 @@ $(function() {
                 docg.at(['contacts', username]).set({ 'picture' : imageData });
             });
         };
+        sharejs.open('user_' + username, 'json', function(error, doc) {
+            if(error) {
+                alert(error);
+                return;
+            }
+            
+            if (doc.created) {
+                doc.set({ messages : {} });
+            }
+            
+            usermodel = doc;
+            
+            doc.on('change', function() {
+                showMessages();
+            });
+        });
         return false;
     });
 
     sharejs.open('model', 'json', function(error, doc) {
         docg = doc;
         if (error) {
-          if (console) {
-            console.error(error);
-          }
-          return;
+            alert(error);
+            return;
         }
     
         if (doc.created) {
@@ -223,7 +271,6 @@ $(function() {
             showPool();
             showSentence();
             showContacts();
-            console.log(doc.snapshot);
         });
     });
     

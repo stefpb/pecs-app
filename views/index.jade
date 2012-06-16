@@ -32,6 +32,14 @@
         a(href='#home', data-icon='back', data-iconpos='notext', data-direction='reverse') Back
     div(data-role='content')
         #contact_list
+#messages(data-role='page')
+    div(data-role='header', data-position='fixed')
+        h1 Chat with
+        a(href='#contacts', data-icon='back', data-iconpos='notext', data-direction='reverse') Back
+    div(data-role='content')
+        #message_list
+    div(data-role='footer', data-position='fixed')
+        a(href='#chat', data-icon='arrow-r', data-iconpos='notext', data-direction='reverse') Compose
 #chat(data-role='page')
     div(data-role='header', data-position='fixed')
         a(href='#home', data-icon='home', data-iconpos='notext', data-direction='reverse') Home
