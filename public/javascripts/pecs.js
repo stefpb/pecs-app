@@ -125,13 +125,17 @@ function showContacts() {
     $('#contact_list').html('');
     $.each(docg.at(['contacts']).get(), function(i) {
         $(itemToHtml('contact', i, docg.at(['contacts']).get()[i].picture)).appendTo('#contact_list').click(function() {
-            receiver=i;
-            $('#messages h1').text('Chat with ' + i);
-            $('#chat h1').text('Write with ' + i);
-            showMessages();
-            $.mobile.changePage($('#messages'));
+            showMessagesFrom(i);
         });
     });
+}
+
+function showMessagesFrom(to) {
+    receiver=to;
+    $('#messages h1').text('Chat with ' + to);
+    $('#chat h1').text('Write with ' + to);
+    showMessages();
+    $.mobile.changePage($('#messages'));
 }
 
 function showMessages() {
@@ -245,8 +249,12 @@ $(function() {
             
             usermodel = doc;
             
-            doc.on('change', function() {
-                showMessages();
+            doc.on('change', function(change) {
+                console.log(change);
+                var from  = change[0].p[1];
+                if(confirm("Receive message from " + from + ". Want to see it?")) {
+                    showMessagesFrom(from);
+                }
             });
         });
         return false;
