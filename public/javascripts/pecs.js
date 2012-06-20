@@ -250,6 +250,10 @@ $(function() {
     
     $('#login form').submit(function() {
         username=$('#login #username').val();
+        if(!username) {
+            alert("Please enter an username!");
+            return false;
+        }
         $.mobile.changePage($('#home'));
         if(!docg.at(['contacts']).get()[username]) {
             alert("Welcome " + username + "! You are new in the system. Please take a picture of you.");
