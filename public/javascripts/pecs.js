@@ -148,8 +148,8 @@ function showMessages() {
         if(messages && messages.length) {
             $('#message_list').html('');
             $.each(messages, function(j) {
+                $('<span>' + $.timeago(new Date(messages[j].time)) + '</span>').appendTo('#message_list');
                 var msg = $('<div class="messsage ' + messages[j].direction + '"></div>').appendTo('#message_list');
-                $('<span>' + $.timeago(new Date(messages[j].time)) + '</span>').appendTo(msg);
                 $.each(messages[j].sentence, function(i) {
                     var word = Object.keys(messages[j].sentence[i])[0];
                     $(itemToHtml('word', word, messages[j].sentence[i][word].community)).appendTo(msg);
@@ -214,6 +214,10 @@ $(function() {
     });
     
     $('#send_sentence').click(function() {
+        if(!sentence.length) {
+            alert("No Message");
+            return;
+        }
         messagetime=(new Date()).getTime();
         // Send message to the usermodel as 'incoming'
         sharejs.open('user_' + receiver, 'json', function(error, doc) {
@@ -248,7 +252,7 @@ $(function() {
         username=$('#login #username').val();
         $.mobile.changePage($('#home'));
         if(!docg.at(['contacts']).get()[username]) {
-            alert("Welcome " + username + "! You are new in the system. Please make a picture of you.");
+            alert("Welcome " + username + "! You are new in the system. Please take a picture of you.");
             takePicture(function(imageData) {
                 docg.at(['contacts', username]).set({ 'picture' : imageData });
             });
@@ -266,7 +270,6 @@ $(function() {
             usermodel = doc;
             
             doc.on('change', function(change) {
-                console.log(change);
                 var from  = change[0].p[1];
                 if((change[0].li && change[0].li.direction === 'outgoing') || confirm("Receive message from " + from + ". Want to see it?")) {
                     showMessagesFrom(from);
