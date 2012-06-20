@@ -275,7 +275,7 @@ $(function() {
             
             doc.on('change', function(change) {
                 var from  = change[0].p[1];
-                if((change[0].li && change[0].li.direction === 'outgoing') || confirm("Receive message from " + from + ". Want to see it?")) {
+                if((change[0].li && change[0].li.direction === 'outgoing') || (change[0].li && change[0].li.direction === 'incoming') && confirm("Receive message from " + from + ". Want to see it?")) {
                     showMessagesFrom(from);
                 }
             });
