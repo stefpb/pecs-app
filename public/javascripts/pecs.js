@@ -28,6 +28,9 @@ var model = {
             },
             'thanks': {
                 'community': '/9j/4AAQSkZJRgABAQEASABIAAD//gATQ3JlYXRlZCB3aXRoIEdJTVD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAoACgDASIAAhEBAxEB/8QAGQABAAMBAQAAAAAAAAAAAAAAAAQGBwgB/8QAKxAAAgIBBAIBAwIHAAAAAAAAAQIDBAUABhESByETFDEyIkIVFiMkQWFx/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/ANf8l743dtryPYxW0oL+5KF6KNct9PQktttmVviRJgsQYyAxlpTV69yV7hgr8au/844HE+NsXmMDfk3NBaENLEdbgknyVhm+NU+Rz7fsGLk/gEkZgAh4tOIxlLE0zToRNFC0805BkZyZJZGlkbliT7d2P+ueBwPWsK3Fj935TGX/ACg9qzs5sRFeO1NuxY2A2ZJ5ew+SYSKxazZkJAiUc8OoBLsxIdAIWKAuAG49gHkA/wDde6gY/LY61YajHk6E9+EcTwQTqzIw9NyvPI4Pr3qfoGmmmgapfknZbbjx+Ut1LczZYYmWDERWJf7Wnd4cw20UDlJ1ZgBKD2UD9PHJ5ummg5m/j1/EZqqdpbSt7Oq7V2fZs2KV3HdWtWW6wVoWcEGVQyl1b9xRh+RPTddpbx27n3joY3NxZC6tZZyRC8Xzx/p/rIGADRt2VgykqQ6kEhgTA3947wu68VmqhVaNjOilDk7SJ3eevWm+QR8E8KSpkQOPa9w3vqBqhb+3muy9w4/J7gwtfHw4eWzR27gsXNHPbyMbQkJYKgr8EHCdOoVurEEkKPYa1ic9UymczGKqJMzYiSKGzMUIjMroJDGp/cyo0ZPH27gffkBqo+DJLUG3JKGSweRo5iSebIZazNQNeCa3YkMsgjLHtIq9+ik/ZY1B68BdNBommmmgah3MVi7sk0lzG07LzVmqytLArmSBvyiYke0P+VPo6aaDIru17dbyFtKC5iM9nDj1GMkyllD9NLXEUzJN2imLJMgkCO8sfWUk9Qvoo000H//Z'
+            },
+            'have' : {
+                'community': '/9j/4AAQSkZJRgABAQEASABIAAD//gATQ3JlYXRlZCB3aXRoIEdJTVD/2wBDABIMDRANCxIQDhAUExIVGywdGxgYGzYnKSAsQDlEQz85Pj1HUGZXR0thTT0+WXlaYWltcnNyRVV9hnxvhWZwcm7/2wBDARMUFBsXGzQdHTRuST5Jbm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm5ubm7/wAARCAAoACgDASIAAhEBAxEB/8QAGQABAQEBAQEAAAAAAAAAAAAAAAUGBAED/8QAKRAAAQMEAQMDBAMAAAAAAAAAAQIDBAAFESESEzFhBkFRFCJxgVKRwf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCveb4vm5GhtS+k0oplSmWs9IDZSnOs47n2G91diqbXFaUysuNlA4rKiSoY0cnZqBdQ0hCrbD5Mw4TJelpazlScaRn5Vskn811RG7yYjbjL8BtCkAoY6CuLYxoAgigs0qZaryibBguvANuzOSUJTsEpzk+BhOap0ClKUHzXHaWh1Cm0kPDDmsctY3+tVAullkNtNR7dMltx3nEtFtJKktIOcn5xgY/fxWjpQZy5vQrfe7GwlxDbcYOgoByUJ6eBn3rvR6jtrsgsMPLeeAJ4NNLV/mPevZ3p63XCY1JkMgqbzkJwkLz/ACxs/wB1NmSEW2Si3Whgx2UKR9ZIaQFFlJ2NnwDkkEAGg0jaittKilSCoA8Vdx4NKz8Wctm6xGY13buMWQVJKFFBcbPEqBynGRo9/A/Cg0NKUoFS5ll6kpyZBlOxZTmOZB5NrwMfcg6OteO9KUHRChJQht6TGiJmDJUtlGgT3wTvdKUoP//Z'
             }
         }
     },
@@ -52,7 +55,7 @@ function onDeviceReady() {
 var docg;
 var selectedPath;
 var sentence = [];
-var username='community';
+var username;
 var receiver;
 var usermodel;
 
@@ -96,7 +99,7 @@ function showSentence() {
         var word = Object.keys(sentence[i])[0];
         $(itemToHtml('word', word, sentence[i][word].community)).appendTo('#sentence');
     });
-    $('<div class="add">+</div>').appendTo('#sentence').on('click', resetPool);
+    //$('<div class="add">+</div>').appendTo('#sentence').on('click', resetPool);
 }
 
 function takePicture(callback) {
@@ -145,10 +148,11 @@ function showMessages() {
         if(messages && messages.length) {
             $('#message_list').html('');
             $.each(messages, function(j) {
-                $('<span>' + $.timeago(new Date(messages[j].time)) + '</span>').appendTo('#message_list');
+                var msg = $('<div class="messsage ' + messages[j].direction + '"></div>').appendTo('#message_list');
+                $('<span>' + $.timeago(new Date(messages[j].time)) + '</span>').appendTo(msg);
                 $.each(messages[j].sentence, function(i) {
                     var word = Object.keys(messages[j].sentence[i])[0];
-                    $(itemToHtml('word', word, messages[j].sentence[i][word].community)).appendTo('#message_list');
+                    $(itemToHtml('word', word, messages[j].sentence[i][word].community)).appendTo(msg);
                 });
                 $('<hr style="clear:both" />').appendTo('#message_list');
             });
@@ -210,6 +214,8 @@ $(function() {
     });
     
     $('#send_sentence').click(function() {
+        messagetime=(new Date()).getTime();
+        // Send message to the usermodel as 'incoming'
         sharejs.open('user_' + receiver, 'json', function(error, doc) {
             if(error) {
                 alert(error);
@@ -220,11 +226,21 @@ $(function() {
             }
             
             doc.at(['messages', username]).push({
-                'time': (new Date()).getTime(),
-                'sentence': sentence
+                'time': messagetime,
+                'sentence': sentence,
+                'direction': 'incoming'
             }, function() {
                 doc.close();
             });
+        });
+        // Save outgoing message
+        if(!usermodel.at(['messages', receiver]).get()) {
+            usermodel.at(['messages', receiver]).set([]);
+        }
+        usermodel.at(['messages', receiver]).push({
+            'time': messagetime,
+            'sentence': sentence,
+            'direction': 'outgoing'
         });
     });
     
@@ -252,7 +268,7 @@ $(function() {
             doc.on('change', function(change) {
                 console.log(change);
                 var from  = change[0].p[1];
-                if(confirm("Receive message from " + from + ". Want to see it?")) {
+                if((change[0].li && change[0].li.direction === 'outgoing') || confirm("Receive message from " + from + ". Want to see it?")) {
                     showMessagesFrom(from);
                 }
             });
@@ -281,6 +297,7 @@ $(function() {
             showContacts();
         });
     });
-    
+    if(!username) {
+        $.mobile.changePage($('#login'));
+    }
 });
-
